@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+
+
+
+
+<script>
+
+var width= d3.select('window')[0].parentNode.clientWidth;
+var height= d3.select('window')[0].parentNode.clientHeight;
+
+function projectData(data) {
+
+
+  var svg = d3.select('body').append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+
+    circle = svg.selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('r', 0)
+                .attr('cx', width)
+                .attr('cy', height);
+
+
+
+      circle = svg.selectAll('circle')
+                .transition()
+                  .attr('r', Math.random()*100)
+                  .attr('cx', Math.random()*width)
+                  .attr('cy', Math.random()*height)
+                  .style('opacity', function(d){return d.opacity});
+
+      circle.remove();
+}
+
+var data = [
+  {
+  opacity: Math.random()
+  },
+  {
+  opacity: Math.random()
+  },
+  {
+  opacity: Math.random()
+  },
+  {
+  opacity: Math.random()
+  },
+  {
+  opacity: Math.random()
+  }];
+
+// projectData(data);
+
+  setInterval( function () { projectData(data) }, 2000);
+
+</script>
+</body>
+</html>
