@@ -14,9 +14,15 @@
 var width= d3.select('window')[0].parentNode.clientWidth;
 var height= d3.select('window')[0].parentNode.clientHeight;
 
+var data;
+
+
 function projectData(data) {
+data = [];
+  for (var i = 0; i < Math.floor(Math.random()*50); i++) {
+   data.push({opacity: Math.random()});
 
-
+ }
   var canvas = d3.select('body').append('svg')
             .attr('width', width)
             .attr('height', height);
@@ -28,9 +34,10 @@ function projectData(data) {
                 .data(data)
                 .enter()
                 .append('circle')
-                .attr('r', function(d){return 0})
+                .attr('r', function(d){return 1})
                 .attr('cx', function(d){return width})
-                .attr('cy', function(d){return height});
+                .attr('cy', function(d){return height})
+                .style('opacity', function(d){return 0.5});
 
 
       circle = svg.selectAll('circle')
@@ -38,31 +45,19 @@ function projectData(data) {
                   .attr('r', function(d){return Math.random()*100})
                   .attr('cx', function(d){return Math.random()*width})
                   .attr('cy', function(d){return Math.random()*height})
-                  .style('opacity', function(d){return d.opacity});
+                  .style('opacity', function(d){ return d.opacity});
+        console.log(circle);
 
-      // circle.exit().remove();
+        svg.selectAll('circle').data(data).exit().remove();
 }
 
-var data = [
-  {
-  opacity: Math.random()
-  },
-  {
-  opacity: Math.random()
-  },
-  {
-  opacity: Math.random()
-  },
-  {
-  opacity: Math.random()
-  },
-  {
-  opacity: Math.random()
-  }];
+
 
 // projectData(data);
 
-  setInterval( function () { projectData(data) }, 2000);
+
+  setInterval( function () { projectData(data) }, 2500);
+
 
 </script>
 </body>
